@@ -32,7 +32,7 @@ Este repositório contém uma suíte de testes automatizados para a API **JSONPl
 ## 📑 Documentação e Resultados
 Você pode visualizar a explicação detalhada de cada caso de teste e as evidências de sucesso no meu Notion:
 
-👉 [Link para o seu Notion aqui]
+👉 [[Notion](https://www.notion.so/API-REST-de-Gerenciamento-de-Usu-rios-341437a022aa8076b252edd0ed23c3a5?source=copy_link)]
 
-Desenvolvido por *Thallyssa Gama* | 📧 [thallyssagama55@gmail.com] | 🔗 [Seu LinkedIn]
+Desenvolvido por *Thallyssa Gama* | 📧 [thallyssagama55@gmail.com] | 🔗 [LinkedIn](https://www.linkedin.com/in/thallyssa-gama-265b041b4/)
 
