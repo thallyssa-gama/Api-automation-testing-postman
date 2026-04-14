@@ -20,6 +20,18 @@ Este repositório contém uma suíte de testes automatizados para a API **JSONPl
 
 ---
 
+## 📑 Testes Negativos
+
+**Cenário de Erro** | Entrada | Resultado Esperado | Por que testar? |
+ :--- | :--- | :--- | :--- |
+| User Não Encontrado | `ID/999` | `404 Not Found` | Garantir que o app não quebre ao buscar usuário inexistente. |
+| URL Inválida | `/userrs` | `404 Not Found` | Validar a segurança e o tratamento de URLs inexistentes. |
+| Payload Vazio | `{ }` | `201 Created` | **Alerta:** A API permitiu a criação de um registro sem campos obrigatórios. Em um ambiente de produção, isso seria reportado como um **Bug de Severidade Alta**, pois gera dados inconsistentes no banco de dados. |
+
+
+
+
+
 ## 🛠️ Tecnologias e Validações Aplicadas
 
 - **Validação de Status Code:** Verificação se o servidor retorna o código correto (200, 201).
