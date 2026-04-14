@@ -21,7 +21,7 @@
                   "    pm.response.to.have.status(200);\r",
                   "});\r",
                   "\r",
-                  "// Valida se todos os posts da lista pertencem ao usuário 1\r",
+                  "\r",
                   "pm.test(\"Todos os posts pertencem ao userId 1\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    jsonData.forEach(function(post) {\r",
@@ -78,7 +78,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// O JSONPlaceholder retorna 200 no DELETE.\r",
+                  "pm.test(\"Status code é 200\", function () {\r",
                   "pm.test(\"Postagem deletada com sucesso\", function () {\r",
                   "    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);\r",
                   "});"
@@ -129,17 +129,16 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Valida o status\r",
                   "pm.test(\"Status code é 200\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
                   "});\r",
                   "\r",
-                  "// Valida se o tempo de resposta é rápido (abaixo de 500ms)\r",
+                  "\r",
                   "pm.test(\"Resposta rápida: abaixo de 500ms\", function () {\r",
                   "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
                   "});\r",
                   "\r",
-                  "// Valida se os dados vieram no formato correto\r",
+                  "\r",
                   "pm.test(\"Formato da resposta é JSON\", function () {\r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -188,18 +187,17 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Valida o status\r",
                   "pm.test(\"Status code é 200\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
                   "});\r",
                   "\r",
-                  "// Valida se o ID retornado é (ID 1)\r",
+                  "\r",
                   "pm.test(\"Retornou o ID correto (ID 1)\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    pm.expect(jsonData.id).to.eql(1);\r",
                   "});\r",
                   "\r",
-                  "// Valida se o campo nome não está vazio\r",
+                  "\r",
                   "pm.test(\"O usuário possui um nome cadastrado\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    pm.expect(jsonData.name).to.not.be.empty;\r",
@@ -249,12 +247,11 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// POST, o sucesso é 201\r",
                   "pm.test(\"Usuário criado com sucesso! (Status 201)\", function () {\r",
                   "    pm.response.to.have.status(201);\r",
                   "});\r",
                   "\r",
-                  "// Valida se o servidor gerou um ID para o novo usuário\r",
+                  "\r",
                   "pm.test(\"ID gerado pelo servidor ID 11\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    pm.expect(jsonData.id).to.exist;\r",
@@ -354,6 +351,174 @@
           "request": {
             "method": "POST",
             "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cenários de Erro",
+      "item": [
+        {
+          "name": "Erro 404 - Usuário inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code é 404 Not Found\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Corpo da resposta deve estar vazio ou conter erro\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.empty; \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users/999",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Erro 404 - URL inválida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Retorna 404 para URL não existente\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/userrrrrs",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "userrrrrs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar ID Inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Verifica comportamento ao deletar ID zero\", function () {\r",
+                  "        pm.expect(pm.response.code).to.be.oneOf([200, 404]);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts/0",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Campo Obrigatório",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Verificar se a API é permissiva (Status 201)\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Validação de Segurança: Não deveria permitir criação de usuário vazio\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "   pm.expect(jsonData).to.have.property(\"name\");\r",
+                  "    pm.expect(jsonData.name).to.not.be.undefined;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "https://jsonplaceholder.typicode.com/users",
               "protocol": "https",
